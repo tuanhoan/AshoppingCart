@@ -1,0 +1,27 @@
+﻿@using AShoppingCart.Data 
+<div class="row border-bottom py-4">
+    <div class="col-sm">
+        <div class="media">
+            <img style="width:150px" src="@Details.Image" altText="@Details.Name"
+                 class="mr-3" alt="@Details.Name" />
+            <div class="media-body">
+                <h3>@Details.Name</h3>
+                <button class="btn btn-danger" @onclick="OnDeleteClicked">Delete</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        £@Details.Price
+    </div>
+</div>
+
+@code{
+    [Parameter]
+    public Cart Details { get; set; }
+    [Parameter]
+    public EventCallback<Cart> Ondelete { get; set; }
+    async Task OnDeleteClicked()
+    {
+        await Ondelete.InvokeAsync(Details);
+    }
+}

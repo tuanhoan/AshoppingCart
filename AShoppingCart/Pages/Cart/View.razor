@@ -1,0 +1,22 @@
+﻿@inject AShoppingCart.Data.Control _cart
+@using AShoppingCart.Data
+
+@foreach(var cart in Carts)
+{
+    <Item Details="@cart"
+          Ondelete="Delete"></Item>
+} 
+
+
+@code {
+    private List<Cart> Carts { get; set; }
+    private void Delete(Cart cart) {
+        _cart.DeleteData(cart);
+        Carts.Remove(cart);
+        StateHasChanged();
+    }
+    protected override void OnInitialized()
+    {
+        Carts = _cart.LoadData();
+    }
+}
